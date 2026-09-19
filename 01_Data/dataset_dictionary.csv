@@ -1,0 +1,15 @@
+column,meaning
+nitrogen,Soil nitrogen level (prototype synthetic value)
+phosphorus,Soil phosphorus level (prototype synthetic value)
+potassium,Soil potassium level (prototype synthetic value)
+temperature_c,Observed temperature in Celsius
+humidity_pct,Observed relative humidity percentage
+soil_ph,Soil pH
+rainfall_mm,Rainfall in mm
+ndvi,NDVI-style vegetation index proxy
+soil_moisture,Soil moisture proxy
+forecast_temperature_c,Expected average temperature for next 7 days
+forecast_rainfall_7d_mm,Expected rainfall for next 7 days
+market_price,Synthetic market price proxy
+market_demand_index,Synthetic market demand index
+crop,Target crop class

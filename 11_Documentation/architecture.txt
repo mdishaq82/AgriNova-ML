@@ -1,0 +1,23 @@
+AgriNova Architecture
+
+User
+  |
+  v
+Website
+  |
+  v
+Flask API
+  |
+  v
+Prediction Pipeline
+  |
+  v
+Saved Best ML Model
+  |
+  v
+Crop Recommendation
+
+Training:
+Dataset -> Cleaning -> EDA -> Train/Test Split
+        -> Random Forest / SVM / XGBoost
+        -> Evaluation -> Best Model -> Saved Model

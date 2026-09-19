@@ -1,0 +1,11 @@
+,chickpea,cotton,groundnut,maize,potato,rice,soybean,sugarcane,tomato,wheat
+chickpea,88,1,13,0,0,0,1,0,0,1
+cotton,1,101,1,0,0,0,4,0,0,0
+groundnut,11,2,75,0,0,0,10,0,0,0
+maize,0,0,0,40,3,11,0,0,22,18
+potato,0,0,0,6,67,0,0,0,15,2
+rice,0,0,0,11,0,83,0,0,5,0
+soybean,4,2,12,1,0,1,82,0,0,0
+sugarcane,0,0,0,1,1,1,0,93,0,0
+tomato,0,0,1,17,10,4,2,0,72,2
+wheat,0,0,0,11,7,0,0,0,10,74

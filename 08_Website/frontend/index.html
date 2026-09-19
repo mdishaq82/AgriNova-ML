@@ -1,0 +1,47 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AgriNova | Crop Recommendation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:Arial,sans-serif;max-width:1000px;margin:30px auto;padding:0 18px;background:#f5f7f3;color:#17351f}
+    .card{background:white;padding:24px;border-radius:14px;box-shadow:0 3px 15px #0001}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    label{font-size:13px;font-weight:bold} input{width:100%;box-sizing:border-box;padding:10px;margin-top:4px;border:1px solid #ccd5cc;border-radius:8px}
+    button{margin-top:18px;padding:12px 20px;border:0;border-radius:8px;background:#2f7d32;color:white;font-weight:bold;cursor:pointer}
+    #result{margin-top:18px;padding:16px;border-radius:10px;background:#edf7ed;display:none}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="card">
+<h1>🌾 AgriNova</h1>
+<p>Prototype ML-based crop recommendation system.</p>
+<div class="grid" id="form"></div>
+<button onclick="predict()">Recommend Crop</button>
+<div id="result"></div>
+</div>
+<script>
+const fields = [
+ ["nitrogen","Nitrogen (N)",90],["phosphorus","Phosphorus (P)",45],["potassium","Potassium (K)",40],
+ ["temperature_c","Temperature °C",25],["humidity_pct","Humidity %",65],["soil_ph","Soil pH",6.5],
+ ["rainfall_mm","Rainfall mm",800],["ndvi","NDVI",0.60],["soil_moisture","Soil moisture",0.45],
+ ["forecast_temperature_c","7-day forecast temp °C",25],["forecast_rainfall_7d_mm","7-day forecast rainfall mm",80],
+ ["market_price","Market price",2500],["market_demand_index","Market demand (0-1)",0.80]
+];
+document.getElementById("form").innerHTML = fields.map(x =>
+ `<label>${x[1]}<input id="${x[0]}" type="number" step="any" value="${x[2]}"></label>`
+).join("");
+async function predict(){
+  const data={}; fields.forEach(x=>data[x[0]]=Number(document.getElementById(x[0]).value));
+  const r=await fetch("/api/predict",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  const j=await r.json(); const box=document.getElementById("result"); box.style.display="block";
+  if(!j.ok){box.innerText=j.error; return;}
+  const conf=j.result.confidence===null ? "N/A" : (j.result.confidence*100).toFixed(1)+"%";
+  box.innerHTML=`<b>Recommended crop:</b> ${j.result.crop}<br><b>Model:</b> ${j.result.model}<br><b>Prototype confidence:</b> ${conf}`;
+}
+</script>
+</body>
+</html>

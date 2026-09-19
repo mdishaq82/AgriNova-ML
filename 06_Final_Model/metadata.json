@@ -1,0 +1,32 @@
+{
+  "features": [
+    "nitrogen",
+    "phosphorus",
+    "potassium",
+    "temperature_c",
+    "humidity_pct",
+    "soil_ph",
+    "rainfall_mm",
+    "ndvi",
+    "soil_moisture",
+    "forecast_temperature_c",
+    "forecast_rainfall_7d_mm",
+    "market_price",
+    "market_demand_index"
+  ],
+  "target": "crop",
+  "best_model": "Random Forest",
+  "classes": [
+    "chickpea",
+    "cotton",
+    "groundnut",
+    "maize",
+    "potato",
+    "rice",
+    "soybean",
+    "sugarcane",
+    "tomato",
+    "wheat"
+  ],
+  "dataset_note": "Synthetic prototype dataset generated for learning/demo; not real-world agricultural observations."
+}
