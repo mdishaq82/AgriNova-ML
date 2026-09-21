@@ -1,12 +1,9 @@
-# Deployment Notes
+# Render deployment
 
-For learning, run locally with Flask.
+Build command:
+`pip install -r requirements.txt`
 
-Before public deployment:
-- Replace synthetic data with properly sourced real data.
-- Store secrets in environment variables.
-- Turn off Flask debug mode.
-- Add authentication/rate limiting if needed.
-- Validate all user inputs.
-- Add monitoring and logging.
-- Document data provenance and model limitations.
+Start command:
+`gunicorn --chdir 07_Backend app:app`
+
+The model file `06_Final_Model/best_model.joblib` must be committed to Git because the deployed service needs it at runtime.

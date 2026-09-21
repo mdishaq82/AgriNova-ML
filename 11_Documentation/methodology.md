@@ -1,13 +1,11 @@
 # Methodology
 
-1. Load agricultural prototype data.
-2. Validate duplicates, missing values, and target labels.
-3. Explore distributions and correlations.
-4. Split data into stratified training and test sets.
-5. Train Random Forest, SVM, and XGBoost.
-6. Compare weighted precision, recall, and F1.
-7. Save the best model.
+1. Validate the supplied crop dataset.
+2. Remove duplicates and rows with missing required values.
+3. Split data into 80% training and 20% stratified testing using random_state 42.
+4. Train Random Forest, XGBoost and SVM.
+5. Evaluate accuracy, weighted precision, weighted recall and weighted F1.
+6. Run 5-fold stratified cross-validation on the selected model family.
+7. Save each model and copy the selected model to `06_Final_Model/best_model.joblib`.
 8. Expose prediction through Flask.
-9. Connect a simple web form to the API.
-
-**Data limitation:** the bundled dataset is synthetic and therefore results are demonstrations of the pipeline, not evidence of field performance.
+9. Display the crop recommendation and held-out test accuracy on the website.

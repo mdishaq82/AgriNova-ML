@@ -1,47 +1,38 @@
-
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>AgriNova | Crop Recommendation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{font-family:Arial,sans-serif;max-width:1000px;margin:30px auto;padding:0 18px;background:#f5f7f3;color:#17351f}
-    .card{background:white;padding:24px;border-radius:14px;box-shadow:0 3px 15px #0001}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    label{font-size:13px;font-weight:bold} input{width:100%;box-sizing:border-box;padding:10px;margin-top:4px;border:1px solid #ccd5cc;border-radius:8px}
-    button{margin-top:18px;padding:12px 20px;border:0;border-radius:8px;background:#2f7d32;color:white;font-weight:bold;cursor:pointer}
-    #result{margin-top:18px;padding:16px;border-radius:10px;background:#edf7ed;display:none}
-    @media(max-width:700px){.grid{grid-template-columns:1fr}}
-  </style>
-</head>
-<body>
-<div class="card">
-<h1>🌾 AgriNova</h1>
-<p>Prototype ML-based crop recommendation system.</p>
-<div class="grid" id="form"></div>
-<button onclick="predict()">Recommend Crop</button>
-<div id="result"></div>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriNova — Smart Crop Recommendation</title>
+<style>
+:root{--bg:#07130f;--card:#0d2019;--card2:#10291f;--line:#1d4535;--text:#eef9f2;--muted:#a8c2b3;--accent:#72e6a2;--accent2:#b6f5ce;--danger:#ff9a9a}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 20% 0%,#123426 0,#07130f 42%,#050c09 100%);color:var(--text);min-height:100vh}.wrap{max-width:1080px;margin:auto;padding:28px 18px 50px}.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:44px}.brand{font-weight:800;font-size:22px;letter-spacing:.4px}.pill{border:1px solid var(--line);padding:8px 13px;border-radius:999px;color:var(--muted);font-size:12px}.hero{text-align:center;max-width:760px;margin:0 auto 30px}.hero h1{font-size:clamp(34px,6vw,62px);line-height:1.02;margin:0 0 14px}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);font-size:16px;line-height:1.6}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.card{background:linear-gradient(145deg,rgba(16,41,31,.92),rgba(8,24,18,.92));border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 18px 50px rgba(0,0,0,.22)}.card h2{margin:0 0 6px}.sub{color:var(--muted);font-size:13px;margin-bottom:20px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;color:var(--muted);font-size:12px;margin:0 0 7px}.field input{width:100%;background:#071710;border:1px solid #214737;color:var(--text);border-radius:12px;padding:12px;outline:none}.field input:focus{border-color:var(--accent)}button{width:100%;border:0;border-radius:14px;padding:14px;margin-top:18px;background:var(--accent);color:#062012;font-weight:800;font-size:15px;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.advanced{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}.advanced summary{cursor:pointer;color:var(--accent2);font-weight:700}.future{margin-top:12px;color:var(--muted);font-size:13px;line-height:1.6}.result{min-height:100%;display:flex;flex-direction:column;justify-content:center}.result-box{background:#071710;border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:18px}.crop{font-size:38px;font-weight:900;color:var(--accent);text-transform:capitalize}.accuracy{font-size:14px;color:var(--muted);margin-top:8px}.loader{display:none;margin-top:18px;color:var(--accent2);text-align:center}.loader.show{display:block}.spinner{width:30px;height:30px;border:3px solid #234b39;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}@keyframes spin{to{transform:rotate(360deg)}}.error{color:var(--danger);font-size:13px;margin-top:12px}.footer{text-align:center;color:#759486;font-size:12px;margin-top:25px}@media(max-width:800px){.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.nav{margin-bottom:30px}}
+</style></head>
+<body><div class="wrap">
+<div class="nav"><div class="brand">🌱 AgriNova</div><div class="pill">AI Crop Recommendation</div></div>
+<section class="hero"><h1>Let's start today's <span>crop prediction.</span></h1><p>Enter the available farm conditions and AgriNova will recommend a crop using the trained machine-learning model.</p></section>
+<div class="grid">
+<section class="card"><h2>Basic Prediction</h2><div class="sub">These 7 inputs match the current trained model.</div>
+<div class="fields">
+<div class="field"><label>Nitrogen (N)</label><input id="N" type="number" step="any" placeholder="e.g. 90"></div>
+<div class="field"><label>Phosphorus (P)</label><input id="P" type="number" step="any" placeholder="e.g. 42"></div>
+<div class="field"><label>Potassium (K)</label><input id="K" type="number" step="any" placeholder="e.g. 43"></div>
+<div class="field"><label>Temperature (°C)</label><input id="temperature" type="number" step="any" placeholder="e.g. 25"></div>
+<div class="field"><label>Humidity (%)</label><input id="humidity" type="number" step="any" placeholder="e.g. 80"></div>
+<div class="field"><label>Soil pH</label><input id="ph" type="number" step="any" placeholder="e.g. 6.5"></div>
+<div class="field"><label>Rainfall (mm)</label><input id="rainfall" type="number" step="any" placeholder="e.g. 200"></div>
 </div>
+<button id="predictBtn" onclick="predict()">Predict Crop</button><div id="loader" class="loader"><div class="spinner"></div>Analyzing farm conditions…</div><div id="error" class="error"></div>
+<details class="advanced"><summary>⚙ Advanced Mode — coming soon</summary><div class="future">Future inputs: Soil Moisture • NDVI • Weather Forecast • Market Price • Market Demand. These are kept in the interface for the planned real-data upgrade and are not used by the current model.</div></details>
+</section>
+<section class="card result"><h2>Prediction Result</h2><div class="sub">Your result will appear here.</div><div class="result-box"><div id="crop" class="crop">—</div><div id="model" class="accuracy">Model: —</div><div id="acc" class="accuracy">Test accuracy: —</div></div></section>
+</div><div class="footer">AgriNova • Machine Learning prototype • Current model trained on 7 agricultural features</div></div>
 <script>
-const fields = [
- ["nitrogen","Nitrogen (N)",90],["phosphorus","Phosphorus (P)",45],["potassium","Potassium (K)",40],
- ["temperature_c","Temperature °C",25],["humidity_pct","Humidity %",65],["soil_ph","Soil pH",6.5],
- ["rainfall_mm","Rainfall mm",800],["ndvi","NDVI",0.60],["soil_moisture","Soil moisture",0.45],
- ["forecast_temperature_c","7-day forecast temp °C",25],["forecast_rainfall_7d_mm","7-day forecast rainfall mm",80],
- ["market_price","Market price",2500],["market_demand_index","Market demand (0-1)",0.80]
-];
-document.getElementById("form").innerHTML = fields.map(x =>
- `<label>${x[1]}<input id="${x[0]}" type="number" step="any" value="${x[2]}"></label>`
-).join("");
+const fields=['N','P','K','temperature','humidity','ph','rainfall'];
 async function predict(){
-  const data={}; fields.forEach(x=>data[x[0]]=Number(document.getElementById(x[0]).value));
-  const r=await fetch("/api/predict",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-  const j=await r.json(); const box=document.getElementById("result"); box.style.display="block";
-  if(!j.ok){box.innerText=j.error; return;}
-  const conf=j.result.confidence===null ? "N/A" : (j.result.confidence*100).toFixed(1)+"%";
-  box.innerHTML=`<b>Recommended crop:</b> ${j.result.crop}<br><b>Model:</b> ${j.result.model}<br><b>Prototype confidence:</b> ${conf}`;
+ const btn=document.getElementById('predictBtn'), loader=document.getElementById('loader'), err=document.getElementById('error'); err.textContent='';
+ const data={}; for(const f of fields){const v=document.getElementById(f).value;if(v===''){err.textContent='Please fill all 7 basic inputs.';return} data[f]=Number(v)}
+ btn.disabled=true;loader.classList.add('show');
+ try{const r=await fetch('/api/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const j=await r.json();if(!j.ok)throw new Error(j.error||'Prediction failed');document.getElementById('crop').textContent=j.result.crop;document.getElementById('model').textContent='Model: '+j.result.model;document.getElementById('acc').textContent='Test accuracy: '+(j.result.accuracy*100).toFixed(2)+'%';}
+ catch(e){err.textContent=e.message} finally{btn.disabled=false;loader.classList.remove('show')}
 }
-</script>
-</body>
-</html>
+</script></body></html>

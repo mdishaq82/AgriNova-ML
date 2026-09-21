@@ -1,6 +1,5 @@
 .venv/
 __pycache__/
 *.pyc
-.env
-*.joblib
-05_Evaluation/*.png
+.pytest_cache/
+.DS_Store

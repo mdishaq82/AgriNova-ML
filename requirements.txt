@@ -4,6 +4,6 @@ scikit-learn
 joblib
 matplotlib
 flask
+gunicorn
 xgboost
 pytest
-gunicorn

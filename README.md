@@ -1,47 +1,45 @@
+# AgriNova — AI-Based Crop Recommendation
 
-# AgriNova — ML Crop Recommendation System
+AgriNova is a machine-learning crop recommendation prototype. The current model uses seven inputs: N, P, K, temperature, humidity, pH and rainfall.
 
-## Purpose
-AgriNova is a learning-oriented prototype that predicts a suitable crop from soil, weather, forecast, satellite-style, and market-related features.
+## Current workflow
 
-## Important data note
-The bundled `agriNova_prototype.csv` is **synthetic data generated for development/learning**. It is not a real historical agricultural dataset and must not be used to claim real-world agricultural accuracy.
+Dataset → preprocessing → Random Forest / XGBoost / SVM → evaluation → selected model → Flask API → HTML/JavaScript website.
 
-## Architecture
-Farmer inputs → validation → preprocessing/model pipeline → ML classifier → crop recommendation → Flask API → website.
+## Current dataset
 
-## Models
-- Random Forest
-- SVM
-- XGBoost (enabled when the `xgboost` package is installed)
+`01_Data/raw/Crop_recommendation.csv` contains 2,200 rows, 7 model features and a crop target. It is the dataset supplied for this project. Do not describe it as a specified number of years of raw field observations unless independently verified.
 
-## Run
+## Run locally
+
 ```bash
-python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# macOS/Linux:
-source .venv/bin/activate
-
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 python 03_Preprocessing/preprocess.py
-python 04_ML_Models/train_models.py
 python 02_EDA/run_eda.py
-python 10_Testing/test_prediction.py
+python 04_ML_Models/train_models.py
+python 09_Integration/smoke_test.py
+python -m pytest 10_Testing/test_prediction.py
 python 07_Backend/app.py
 ```
 
 Open `http://127.0.0.1:5000`.
 
-## Suggested learning order
-1. Read the dataset dictionary.
-2. Run EDA.
-3. Understand train/test split.
-4. Read each model implementation.
-5. Compare metrics.
-6. Understand `prediction_pipeline.py`.
-7. Understand Flask API.
-8. Understand the website-to-API flow.
+## Website modes
 
-## Next upgrade
-Replace the synthetic prototype data with properly sourced real agricultural, weather, market, and satellite-derived data. Only then should real-world performance claims be made.
+**Basic Prediction:** N, P, K, temperature, humidity, pH and rainfall. These are the inputs supported by the current trained model.
+
+**Advanced Mode:** The interface reserves space for soil moisture, NDVI, weather forecast and market information. These fields are not sent to the current model because the current training dataset does not contain them. They should only be activated after a compatible dataset is obtained and the model is retrained.
+
+## Accuracy vs confidence
+
+The website displays the model's **held-out test-set accuracy**. It does not display per-prediction confidence as accuracy. These are different concepts.
+
+## Deployment
+
+For Render, use:
+
+Build command:
+`pip install -r requirements.txt`
+
+Start command:
+`gunicorn --chdir 07_Backend app:app`

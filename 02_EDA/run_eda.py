@@ -1,36 +1,19 @@
-
 from pathlib import Path
 import pandas as pd
-import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT/"01_Data/raw/agriNova_prototype.csv"
-OUT = ROOT/"02_EDA"
+DATA = ROOT / '01_Data' / 'processed' / 'crop_recommendation_processed.csv'
+OUT = ROOT / '02_EDA' / 'outputs'
+OUT.mkdir(parents=True, exist_ok=True)
+
 df = pd.read_csv(DATA)
-
-print(df.info())
-print(df.describe(include="all"))
-print("\nMissing values:\n", df.isna().sum())
-print("\nClass counts:\n", df["crop"].value_counts())
-
-df["crop"].value_counts().plot(kind="bar", figsize=(10,5))
-plt.title("Crop Class Distribution")
-plt.xlabel("Crop")
-plt.ylabel("Count")
-plt.tight_layout()
-plt.savefig(OUT/"crop_distribution.png")
-plt.close()
-
-numeric = df.select_dtypes("number")
-corr = numeric.corr()
-corr.to_csv(OUT/"correlation_matrix.csv")
-
-plt.figure(figsize=(10,8))
-plt.imshow(corr, aspect="auto")
-plt.xticks(range(len(corr.columns)), corr.columns, rotation=90, fontsize=7)
-plt.yticks(range(len(corr.index)), corr.index, fontsize=7)
-plt.colorbar()
-plt.title("Numeric Feature Correlation")
-plt.tight_layout()
-plt.savefig(OUT/"correlation_matrix.png")
-plt.close()
+print('\n=== AGRINOVA DATASET CHECK ===')
+print('Rows:', len(df))
+print('Columns:', list(df.columns))
+print('Missing values:\n', df.isna().sum())
+print('Duplicate rows:', df.duplicated().sum())
+print('\nCrop distribution:\n', df['label'].value_counts().sort_index())
+print('\nNumeric summary:\n', df.describe().round(3))
+print('\n=== DONE ===')
+df.describe().T.to_csv(OUT / 'numeric_summary.csv')
+df['label'].value_counts().rename_axis('crop').reset_index(name='samples').to_csv(OUT / 'crop_distribution.csv', index=False)
